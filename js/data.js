@@ -389,6 +389,24 @@
   ];
 
   /* ------------------------------------------------------------------ */
+  /* TECHNOLOGIES & MACHINERIES                                          */
+  /* ------------------------------------------------------------------ */
+  const TECHNOLOGIES = [
+    { name: "Bamboo Splitting Machine", category: "Machinery", suc: "BSU", location: "La Trinidad, Benguet", status: "Available", desc: "Motorized splitter that divides culms into uniform strips for furniture, slats, and handicraft production." },
+    { name: "Engineered Bamboo Hot Press", category: "Machinery", suc: "BSU", location: "La Trinidad, Benguet", status: "Available", desc: "Hydraulic hot press for laminating treated bamboo strips into boards and panels (engineered bamboo)." },
+    { name: "Boucherie Treatment System", category: "Machinery", suc: "KSU", location: "Tabuk City, Kalinga", status: "Available", desc: "Sap-displacement preservative treatment unit that extends culm service life against borers and fungi." },
+    { name: "Bamboo Charcoal Pyrolizer & Kiln", category: "Machinery", suc: "IFSU", location: "Lamut, Ifugao", status: "Available", desc: "Controlled kiln converting bamboo offcuts into charcoal briquettes, with wood-vinegar capture." },
+    { name: "Bamboo Slat & Stick Sizing Machine", category: "Machinery", suc: "ASIST", location: "Lagangilang, Abra", status: "Available", desc: "Produces uniform slats, sticks, and skewers from split bamboo for downstream products." },
+    { name: "Solar Bamboo Drying Kiln", category: "Machinery", suc: "MPSPC", location: "Bontoc, Mountain Province", status: "Prototype", desc: "Solar-assisted kiln that reduces moisture content of culms prior to treatment and processing." },
+    { name: "Bamboo Cross-cut & Sizing Saw", category: "Machinery", suc: "ASC", location: "Luna, Apayao", status: "Available", desc: "Bench saw assembly for cutting culms to length with consistent diameter sizing." },
+    { name: "Fabrication & Machine Shop", category: "Fabricator", suc: "BSU", location: "La Trinidad, Benguet", status: "Available", desc: "In-house fabrication of bamboo processing equipment for partner SUCs, LGUs, and cooperatives." },
+    { name: "Engineering Fabrication Unit", category: "Fabricator", suc: "ASIST", location: "Lagangilang, Abra", status: "Available", desc: "Designs and builds customized bamboo machinery and jigs for community-based enterprises." },
+    { name: "Bamboo Tissue-Culture Protocol", category: "Technology", suc: "BSU", location: "La Trinidad, Benguet", status: "Newly developed", desc: "Micropropagation protocol for mass production of disease-free, uniform planting materials." },
+    { name: "Bamboo Activated-Carbon Process", category: "Technology", suc: "ASIST", location: "Lagangilang, Abra", status: "Newly developed", desc: "Process for producing activated carbon from bamboo biomass for water and air filtration." },
+    { name: "Bamboo Composite Board Technology", category: "Technology", suc: "KSU", location: "Tabuk City, Kalinga", status: "Newly developed", desc: "Formulation for bamboo–polymer composite boards using bamboo processing residues." },
+  ];
+
+  /* ------------------------------------------------------------------ */
   /* PUBLICATIONS                                                        */
   /* ------------------------------------------------------------------ */
   const PUBLICATIONS = [
@@ -466,6 +484,7 @@
     NURSERIES,
     SUITABILITY_ZONES,
     PRODUCTS,
+    TECHNOLOGIES,
     PUBLICATIONS,
     NEWS,
     PARTNERS,

@@ -61,6 +61,8 @@ window.App = (function () {
       emblem = `<g transform="translate(330,55)" opacity=".9"><circle r="22" fill="rgba(255,255,255,.85)"/><rect x="-10" y="-11" width="20" height="22" rx="2" fill="${culmDark}"/><line x1="0" y1="-11" x2="0" y2="11" stroke="#fff" stroke-width="1.6"/></g>`;
     else if (kind === "news")
       emblem = `<g transform="translate(330,55)" opacity=".9"><circle r="22" fill="rgba(255,255,255,.85)"/><circle r="7" fill="${culmDark}"/><g stroke="${culmDark}" stroke-width="2.4"><line x1="0" y1="-16" x2="0" y2="-11"/><line x1="0" y1="11" x2="0" y2="16"/><line x1="-16" y1="0" x2="-11" y2="0"/><line x1="11" y1="0" x2="16" y2="0"/></g></g>`;
+    else if (kind === "tech")
+      emblem = `<g transform="translate(330,55)" opacity=".9"><circle r="22" fill="rgba(255,255,255,.85)"/><g stroke="${culmDark}" stroke-width="3.4" stroke-linecap="round"><line x1="0" y1="-15" x2="0" y2="-9"/><line x1="0" y1="9" x2="0" y2="15"/><line x1="-15" y1="0" x2="-9" y2="0"/><line x1="9" y1="0" x2="15" y2="0"/><line x1="-10.6" y1="-10.6" x2="-6.4" y2="-6.4"/><line x1="6.4" y1="6.4" x2="10.6" y2="10.6"/><line x1="10.6" y1="-10.6" x2="6.4" y2="-6.4"/><line x1="-6.4" y1="6.4" x2="-10.6" y2="10.6"/></g><circle r="7" fill="none" stroke="${culmDark}" stroke-width="3.4"/></g>`;
 
     const svg =
       `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
@@ -90,6 +92,7 @@ window.App = (function () {
   const NEWS_COLORS = {
     Event: "#2e7d32", Training: "#ef6c00", "Tech Demo": "#1565c0", Workshop: "#ad1457", Meeting: "#6a1b9a",
   };
+  const TECH_COLORS = { Machinery: "#3a6e8f", Fabricator: "#8a5d33", Technology: "#2f7a36" };
 
   /* --------------------------------------------------------------------- */
   /* Routing                                                                */
@@ -166,6 +169,7 @@ window.App = (function () {
     renderMapPane();
     renderStatistics();
     renderProducts();
+    renderTechnologies();
     renderPublications();
     renderNews();
     renderPartners();
@@ -333,6 +337,28 @@ window.App = (function () {
     wireCarousels($("#pane-products"));
   }
 
+  /* ---- Technologies & Machineries ---- */
+  function renderTechnologies() {
+    const cards = DATA.TECHNOLOGIES.map((t) => {
+      const color = TECH_COLORS[t.category] || "#3d6b27";
+      return `<div class="card wide" onclick='App.modalTech(${JSON.stringify(t).replace(/'/g, "&#39;")})'>
+        <img class="thumb" src="${artSVG(color, t.name, "tech")}" alt="${esc(t.name)}"/>
+        <div class="body">
+          <span class="pill" style="background:${shade(color,.78)};color:${darken(color,.2)}">${esc(t.category)}</span>
+          <h3>${esc(t.name)}</h3>
+          <div class="meta">🏛️ ${esc(t.suc)} · 📍 ${esc(t.location)}</div>
+          <div class="desc">${esc(t.desc)}</div>
+          <span class="pill tan" style="margin-top:2px">${esc(t.status)}</span>
+        </div>
+      </div>`;
+    }).join("");
+    $("#pane-technologies").innerHTML = `
+      <h2 class="section-title">Technologies and Machineries</h2>
+      <p class="section-sub">Available machineries, fabrication units, and newly developed bamboo technologies from the Cordillera State Universities and Colleges.</p>
+      ${carousel(cards)}`;
+    wireCarousels($("#pane-technologies"));
+  }
+
   /* ---- Publications ---- */
   function renderPublications() {
     const cards = DATA.PUBLICATIONS.map((p) => {
@@ -349,7 +375,7 @@ window.App = (function () {
     }).join("");
     $("#pane-publications").innerHTML = `
       <h2 class="section-title">Publications &amp; Manuals</h2>
-      <p class="section-sub">Manuals, modules, field guides, and research outputs produced under the program.</p>
+      <p class="section-sub">Manuals, modules, field guides, technologies and research outputs produced under the program.</p>
       ${carousel(cards)}`;
     wireCarousels($("#pane-publications"));
   }
@@ -1328,6 +1354,21 @@ window.App = (function () {
       <table class="taxon-table"><tr><td>Bamboo species</td><td class="sci-name">${esc(p.species)}</td></tr>
       <tr><td>Category</td><td>${esc(p.tag)}</td></tr><tr><td>Location</td><td>${esc(p.location)}</td></tr></table>`);
   }
+  function modalTech(t) {
+    const color = TECH_COLORS[t.category] || "#3d6b27";
+    openModal(`
+      <img src="${artSVG(color, t.name, "tech")}" style="width:100%;border-radius:10px;margin-bottom:16px"/>
+      <span class="pill" style="background:${shade(color,.78)};color:${darken(color,.2)}">${esc(t.category)}</span>
+      <h2 style="margin-top:8px">${esc(t.name)}</h2>
+      <p class="muted">🏛️ ${esc(t.suc)} · 📍 ${esc(t.location)}</p>
+      <p>${esc(t.desc)}</p>
+      <table class="taxon-table">
+        <tr><td>Category</td><td>${esc(t.category)}</td></tr>
+        <tr><td>Developed / hosted by</td><td>${esc(t.suc)}</td></tr>
+        <tr><td>Location</td><td>${esc(t.location)}</td></tr>
+        <tr><td>Status</td><td>${esc(t.status)}</td></tr>
+      </table>`);
+  }
   function modalPublication(p) {
     const color = PUBTYPE_COLORS[p.type] || "#3d6b27";
     openModal(`
@@ -1357,7 +1398,7 @@ window.App = (function () {
 
   return {
     init, go, quick, quickSpecies,
-    modalSpecies, modalProduct, modalPublication, modalNews, closeModal,
+    modalSpecies, modalProduct, modalTech, modalPublication, modalNews, closeModal,
     generateReport, resetRequest, resetContribute, resetContact,
     showOccurrenceOnMap, showEstablishmentOnMap,
   };
